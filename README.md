@@ -14,7 +14,7 @@ automysqlbackup.conf overwrites script values
 
 Anything with an empty string implies that you are conceding to the default value in automysqlbackup.conf. Anything not specified in automysqlbackup.conf accepts the scripts builtin, default value of the script.
 
-## Usage (finally)
+## Usage
 
 ### Basic:
 
