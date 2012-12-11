@@ -1,0 +1,10 @@
+#!/bin/sh
+
+BIN_FILE=/usr/local/bin/automysqlbackup
+
+if `test -x $BIN_FILE`; then
+	$BIN_FILE
+else
+	echo "ERROR: File does not exist or `whoami` does not have permission to execute it."
+	exit 1
+fi

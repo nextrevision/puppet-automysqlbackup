@@ -1,12 +1,16 @@
-# automysqlbackup Module for Puppet
+# AutoMySQLBackup Module for Puppet
 
 ## Intro
 
-Before using this module, you need to consult the automysqlbackup developer documentation in order to comprehend what each option performs. It is included within this module and is certainly worth getting familiar with.
+Before using this module, it is highly recommended that you consult the automysqlbackup developer documentation in order to comprehend what each option performs. It is included within this module and is certainly worth getting familiar with.
+
+Documentation can be found here: http://sourceforge.net/projects/automysqlbackup
 
 ## Variable Names
 
 I have kept the same variable names as the author of the script to make it easier to lookup the documentation. Essentially, add CONFIG_ to the variable in question and regex search the documentation to find the meaning. No interpretation from me.
+
+The exception to this rule is the "cron_script" variable which is local to the puppet module. It, as the variable name implies, installs a script to be run by cron nightly in /etc/cron.daily/.
 
 ## Supercedence
 
@@ -20,7 +24,7 @@ Anything with an empty string implies that you are conceding to the default valu
 
 	class { 'automysqlbackup':
 		mysql_dump_username	=> "root",
-		mysql_dump_password => "password",
+		mysql_dump_password	=> "password",
 	}
 
 ### Daily backups only excluding certain databases:
@@ -33,10 +37,13 @@ Anything with an empty string implies that you are conceding to the default valu
 		db_exclude			=> ['performance_schema','information_schema'],
 	}
 
+### Without cron job creation:
+	class { 'automysqlbackup':
+		mysql_dump_username	=> "root",
+		mysql_dump_password => "password",
+		cron_script			=> false,
+	}
+
 ## Support/Contribute
 
-First, read the developer's documentation for the automysqlbackup script. If there is an issue with the Puppet module, or you have an addition to make, please create a new issue or (even better) fork and change it, then provide me with either a patch or a pull request and I'll be happy to add it back in.
-
-## To Do
-
-* Cron job addition
+First, please read the developer's documentation for the automysqlbackup script. If there is an issue with the Puppet module, or you have an addition to make, please create a new issue or (even better) fork and change it, then provide me with either a patch or a pull request and I'll be happy to add it back in. If you have a feature you would like to see added, please create a new issue and I'll see if I can't add it in shortly.

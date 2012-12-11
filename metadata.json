@@ -1,0 +1,27 @@
+{
+  "project_page": "http://github.com/nextrevision/puppet-automysqlbackup/issues",
+  "description": "Performs full deployment and configuration of automysqlbackup for Debian/Ubuntu hosts.",
+  "summary": "Deploy automysqlbackup via Puppet",
+  "source": "https://github.com/nextrevision/puppet-automysqlbackup/",
+  "author": "nextrevision",
+  "license": "Apache",
+  "types": [
+
+  ],
+  "version": "0.0.1",
+  "name": "nextrevision-automysqlbackup",
+  "checksums": {
+    "files/LICENSE": "39bba7d2cf0ba1036f2a6e2be52fe3f0",
+    "manifests/init.pp": "2a679a63ad9b208a67fef6ac7ae581d3",
+    "templates/automysqlbackup.conf.erb": "6c670577ef34be7e5dd02d00f089ae8d",
+    "README.md": "eef76e1cc1b4abc25c7b40c90e33fbd1",
+    "manifests/params.pp": "e085829076a91da1992e68cb5887a508",
+    "files/automysqlbackup.conf": "d525efa3da15ce9fea96893e5a8ce6d5",
+    "files/README": "b17740fcd3a5f8579b907a42249a83cd",
+    "files/automysqlbackup": "447c33d2546181d07d0c0d69d76b189b",
+    "Modulefile": "78687d21b5ebc1980b094b053fa36a60"
+  },
+  "dependencies": [
+
+  ]
+}

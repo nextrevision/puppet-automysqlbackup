@@ -25,6 +25,7 @@
 #	}
 
 class automysqlbackup (
+	$cron_script = true, # NOT AN AUTOMYSQLBACKUP CONFIG VARIABLE
 	$mysql_dump_username = "",
 	$mysql_dump_password = "",
 	$mysql_dump_host = "",
@@ -101,6 +102,15 @@ class automysqlbackup (
 		group	=> "root",
 		mode	=> 0755,
 		source	=> "puppet:///modules/automysqlbackup/automysqlbackup",
+	}
+	if $cron_script {
+		file { "/etc/cron.daily/automysqlbackup":
+			ensure	=> file,
+			owner	=> "root",
+			group	=> "root",
+			mode	=> 0755,
+			source	=> "puppet:///modules/automysqlbackup/automysqlbackup.cron",
+		}
 	}
 
 	# Creating a hash, really could probably avoid doing this, but wanted to try
