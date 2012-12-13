@@ -109,7 +109,7 @@ class automysqlbackup (
 			owner	=> "root",
 			group	=> "root",
 			mode	=> 0755,
-			source	=> "puppet:///modules/automysqlbackup/automysqlbackup.cron",
+			content	=> template('automysqlbackup/automysqlbackup.cron.erb'),
 		}
 	}
 
