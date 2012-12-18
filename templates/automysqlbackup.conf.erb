@@ -3,10 +3,18 @@
 # FILE WILL BE OVERWRITTEN
 
 # String options
-<% template_string_options.each_pair do |k, v| %><% if !v.empty? %>
-<%= "CONFIG_#{k}=\"#{v}\"" %><% end %><% end %>
-
+<% template_string_options.sort.map do |k, v| -%>
+<% if !v.empty? -%>
+<%= "CONFIG_#{k}=\"#{v}\"" %>
+<% end -%>
+<% end -%>
 # Array options
-<% template_array_options.each_pair do |k, v| %><% config_string = "CONFIG_#{k}=( " %><% if !v.empty? then %><% v.each do |item| %><% config_string += "'#{item}' " %><% end %>
+<% template_array_options.sort.map do |k, v| -%>
+<% config_string = "CONFIG_#{k}=( " -%>
+<% if !v.empty? then -%>
+<% v.each do |item| -%>
+<% config_string += "'#{item}' " -%>
+<% end -%>
 <%= config_string += ")" %>
-<% end %><% end %>
+<% end -%>
+<% end -%>

@@ -6,6 +6,10 @@ Before using this module, it is highly recommended that you consult the automysq
 
 Documentation can be found here: http://sourceforge.net/projects/automysqlbackup
 
+## Compatibility
+
+The module has sucessfully been tested on Ubuntu 12.04+, Debian 6.0, and CentOS 6.3. If you find it doesn't work on your platform, open up a ticket on the GitHub project page.
+
 ## Variable Names
 
 I have kept the same variable names as the author of the script to make it easier to lookup the documentation. Essentially, add CONFIG_ to the variable in question and regex search the documentation to find the meaning. No interpretation from me.
