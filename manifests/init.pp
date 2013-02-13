@@ -95,14 +95,14 @@ class automysqlbackup (
 		source  => "puppet:///modules/automysqlbackup/automysqlbackup.conf",
 	}
 
-	file { "$etc_dir/README":
+	file { "$etc_dir/AMB_README":
 		ensure	=> file,
-		source	=> "puppet:///modules/automysqlbackup/README",
+		source	=> "puppet:///modules/automysqlbackup/AMB_README",
 	}
 
-	file { "$etc_dir/LICENSE":
+	file { "$etc_dir/AMB_LICENSE":
 		ensure	=> file,
-		source	=> "puppet:///modules/automysqlbackup/LICENSE",
+		source	=> "puppet:///modules/automysqlbackup/AMB_LICENSE",
 	}
 
 	file { "$bin_dir/automysqlbackup":
