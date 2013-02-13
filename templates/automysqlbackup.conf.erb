@@ -8,6 +8,7 @@
 <%= "CONFIG_#{k}=\"#{v}\"" %>
 <% end -%>
 <% end -%>
+
 # Array options
 <% template_array_options.sort.map do |k, v| -%>
 <% config_string = "CONFIG_#{k}=( " -%>
