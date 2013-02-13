@@ -5,7 +5,7 @@ BIN_FILE=/usr/local/bin/automysqlbackup
 if `test -x $BIN_FILE`; then
 	$BIN_FILE
 	<% if cron_set_permissions %>
-	chown root.root /var/backup/db* -R
+	chown -R root.root <%= backup_dir %>
 	find <%= backup_dir %>/* -type f -exec chmod 400 {} \;
 	find <%= backup_dir %>/* -type d -exec chmod 700 {} \;
 	<% end %>
