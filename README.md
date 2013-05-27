@@ -26,27 +26,27 @@ Anything with an empty string implies that you are conceding to the default valu
 
 ### Basic:
 
-	class { 'automysqlbackup':
-		mysql_dump_username	=> "root",
-		mysql_dump_password	=> "password",
-	}
+  class { 'automysqlbackup':
+    mysql_dump_username  => 'root',
+    mysql_dump_password  => 'password',
+  }
 
 ### Daily backups only excluding certain databases:
-	
-	class { "automysqlbackup": 
-		mysql_dump_username	=> "root",
-		mysql_dump_password => "password",
-		do_monthly			=> "0",
-		do_weekly			=> "0",
-		db_exclude			=> ['performance_schema','information_schema'],
-	}
+
+  class { 'automysqlbackup':
+    mysql_dump_username => 'root',
+    mysql_dump_password => 'password',
+    do_monthly          => '0',
+    do_weekly           => '0',
+    db_exclude          => ['performance_schema','information_schema'],
+  }
 
 ### Without cron job creation:
-	class { 'automysqlbackup':
-		mysql_dump_username	=> "root",
-		mysql_dump_password => "password",
-		cron_script			=> false,
-	}
+  class { 'automysqlbackup':
+    mysql_dump_username  => 'root',
+    mysql_dump_password  => 'password',
+    cron_script          => false,
+  }
 
 ## Support/Contribute
 
