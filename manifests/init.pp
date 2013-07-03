@@ -86,6 +86,7 @@ class automysqlbackup (
   }
   if ! has_key($config_defaults,'etc_dir') {
       $config_defaults['etc_dir'] = $automysqlbackup::params::etc_dir
+  }
 
   # if you'd like to keep your config in hiera and pass it to this class.
   if is_hash($config) {

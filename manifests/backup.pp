@@ -83,17 +83,17 @@ define automysqlbackup::backup (
   
   require automysqlbackup
   
-  if is_string($backup_dir) {
-    $local_backup_dir = $backup_dir
+  if $backup_dir {
+    $local_backup_dir = "${backup_dir}/${name}"
   } 
   else {
-    $local_backup_dir = $automysqlbackup::params::backup_dir
+    $local_backup_dir = "${automysqlbackup::params::backup_dir}/${name}"
   }
-  if is_string($etc_dir) {
-    $local_etc_file = "${etc_dir}/${name}"
+  if $etc_dir {
+    $local_etc_file = "${etc_dir}/${name}.conf"
   } 
   else {
-    $local_etc_file = "${automysqlbackup::params::etc_dir}/${name}"
+    $local_etc_file = "${automysqlbackup::params::etc_dir}/${name}.conf"
   }
 
   file { $local_backup_dir:
@@ -103,7 +103,7 @@ define automysqlbackup::backup (
     mode    => '0755',
   }
   if $cron_script {
-    file { '/etc/cron.daily/${name}.automysqlbackup':
+    file { "/etc/cron.daily/${name}.automysqlbackup":
       ensure   => file,
       owner    => 'root',
       group    => 'root',
