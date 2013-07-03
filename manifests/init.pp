@@ -33,53 +33,13 @@
 
 
 class automysqlbackup (
-  $cron_script = true,
-  $cron_set_permissions = true,
-  $mysql_dump_username = '',
-  $mysql_dump_password = '',
-  $mysql_dump_host = '',
-  $mysql_dump_port = 3306,
-  $backup_dir = '/var/backup',
-  $multicore = '',
-  $multicore_threads = '',
-  $db_names = [],
-  $db_month_names = [],
-  $db_exclude = [],
-  $table_exclude = [],
-  $do_monthly = '01',
-  $do_weekly = '5',
-  $rotation_daily = '6',
-  $rotation_weekly = '35',
-  $rotation_monthly = '150',
-  $mysql_dump_commcomp = '',
-  $mysql_dump_usessl = '',
-  $mysql_dump_socket = '',
-  $mysql_dump_max_allowed_packet = '',
-  $mysql_dump_buffer_size = '',
-  $mysql_dump_single_transaction = '',
-  $mysql_dump_master_data = '',
-  $mysql_dump_full_schema = '',
-  $mysql_dump_dbstatus = '',
-  $mysql_dump_create_database = '',
-  $mysql_dump_use_separate_dirs = '',
-  $mysql_dump_compression = 'gzip',
-  $mysql_dump_latest = '',
-  $mysql_dump_latest_clean_filenames = '',
-  $mysql_dump_differential = '',
-  $mailcontent = '',
-  $mail_maxattsize = '',
-  $mail_splitandtar = '',
-  $mail_use_uuencoded_attachments = '',
-  $mail_address = '',
-  $encrypt = '',
-  $encrypt_password = '',
-  $backup_local_files = [],
-  $prebackup = '',
-  $postbackup = '',
-  $umask = '',
-  $dryrun = ''
-) {
-  require automysqlbackup::params
+  $bin_dir = $automysqlbackup::params::bin_dir,
+  $etc_dir = $automysqlbackup::params::etc_dir,
+  $backup_dir = $automysqlbackup::params::backup_dir,
+  $config = {},
+  $config_defaults = {}
+) inherits automysqlbackup::params {
+  
 
   file { $automysqlbackup::params::etc_dir:
     ensure  => directory,
@@ -120,72 +80,15 @@ class automysqlbackup (
     group   => 'root',
     mode    => '0755',
   }
-  if $cron_script {
-    file { '/etc/cron.daily/automysqlbackup':
-      ensure   => file,
-      owner    => 'root',
-      group    => 'root',
-      mode     => '0755',
-      content  => template('automysqlbackup/automysqlbackup.cron.erb'),
-    }
-  }
 
-  # Creating a hash, really could probably avoid doing this, but wanted to try
-  $template_string_options = {
-    'mysql_dump_username' => $mysql_dump_username,
-    'mysql_dump_password' => $mysql_dump_password,
-    'mysql_dump_host' => $mysql_dump_host,
-    'mysql_dump_port' => $mysql_dump_port,
-    'backup_dir' => $backup_dir,
-    'multicore' => $multicore,
-    'multicore_threads' => $multicore_threads,
-    'do_monthly' => $do_monthly,
-    'do_weekly' => $do_weekly,
-    'rotation_daily' => $rotation_daily,
-    'rotation_weekly' => $rotation_weekly,
-    'rotation_monthly' => $rotation_monthly,
-    'mysql_dump_commcomp' => $mysql_dump_commcomp,
-    'mysql_dump_usessl' => $mysql_dump_usessl,
-    'mysql_dump_socket' => $mysql_dump_socket,
-    'mysql_dump_max_allowed_packet' => $mysql_dump_max_allowed_packet,
-    'mysql_dump_buffer_size' => $mysql_dump_buffer_size,
-    'mysql_dump_single_transaction' => $mysql_dump_single_transaction,
-    'mysql_dump_master_data' => $mysql_dump_master_data,
-    'mysql_dump_full_schema' => $mysql_dump_full_schema,
-    'mysql_dump_dbstatus' => $mysql_dump_dbstatus,
-    'mysql_dump_create_database' => $mysql_dump_create_database,
-    'mysql_dump_use_separate_dirs' => $mysql_dump_use_separate_dirs,
-    'mysql_dump_compression' => $mysql_dump_compression,
-    'mysql_dump_latest' => $mysql_dump_latest,
-    'mysql_dump_latest_clean_filenames' => $mysql_dump_latest_clean_filenames,
-    'mysql_dump_differential' => $mysql_dump_differential,
-    'mailcontent' => $mailcontent,
-    'mail_maxattsize' => $mail_maxattsize,
-    'mail_splitandtar' => $mail_splitandtar,
-    'mail_use_uuencoded_attachments' => $mail_use_uuencoded_attachments,
-    'mail_address' => $mail_address,
-    'encrypt' => $encrypt,
-    'encrypt_password' => $encrypt_password,
-    'prebackup' => $prebackup,
-    'postbackup' => $postbackup,
-    'umask' => $umask,
-    'dryrun' => $dryrun
+  if ! has_key($config_defaults,'backup_dir') {
+      $config_defaults['backup_dir'] = $automysqlbackup::params::backup_dir
   }
+  if ! has_key($config_defaults,'etc_dir') {
+      $config_defaults['etc_dir'] = $automysqlbackup::params::etc_dir
 
-  $template_array_options = {
-    'db_names' => $db_names,
-    'db_month_names' => $db_month_names,
-    'db_exclude' => $db_exclude,
-    'table_exclude' => $table_exclude,
-    'backup_local_files' => $backup_local_files,
-  }
-
-  # last but not least, create the automysqlbackup.conf
-  file { "${automysqlbackup::params::etc_dir}/automysqlbackup.conf":
-    ensure  => file,
-    content => template('automysqlbackup/automysqlbackup.conf.erb'),
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0650',
+  # if you'd like to keep your config in hiera and pass it to this class.
+  if is_hash($config) {
+    create_resources("@${module_name}::backup",$config,$config_defaults)
   }
 }
