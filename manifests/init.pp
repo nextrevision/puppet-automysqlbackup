@@ -89,7 +89,7 @@ class automysqlbackup (
   }
 
   # if you'd like to keep your config in hiera and pass it to this class.
-  if is_hash($config) {
+  if ! empty($config) {
     create_resources("@${module_name}::backup",$config,$config_defaults)
   }
 }

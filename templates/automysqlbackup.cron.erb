@@ -5,9 +5,9 @@ BIN_FILE=/usr/local/bin/automysqlbackup
 if `test -x $BIN_FILE`; then
 	$BIN_FILE <%= @local_etc_file %>
 	<% if cron_set_permissions %>
-	chown -R root.root <%= backup_dir %>
-	find <%= backup_dir %>/* -type f -exec chmod 400 {} \;
-	find <%= backup_dir %>/* -type d -exec chmod 700 {} \;
+	chown -R root.root <%= @backup_dir %>
+	find <%= @backup_dir %>/* -type f -exec chmod 400 {} \;
+	find <%= @backup_dir %>/* -type d -exec chmod 700 {} \;
 	<% end %>
 else
 	echo "ERROR: File does not exist or `whoami` does not have permission to execute it."

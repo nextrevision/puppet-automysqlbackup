@@ -81,7 +81,7 @@ define automysqlbackup::backup (
   $dryrun = ''
 ) {
   
-  require automysqlbackup
+  include automysqlbackup
   
   if $backup_dir {
     $local_backup_dir = "${backup_dir}/${name}"
