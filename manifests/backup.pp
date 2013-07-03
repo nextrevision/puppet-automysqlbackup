@@ -82,20 +82,19 @@ define automysqlbackup::backup (
 ) {
   
   include automysqlbackup
-  
-  if $backup_dir {
+
+  if empty($backup_dir) {  
+    $local_backup_dir = "${automysqlbackup::backup_dir}/${name}"
+  } else {
     $local_backup_dir = "${backup_dir}/${name}"
-  } 
-  else {
-    $local_backup_dir = "${automysqlbackup::params::backup_dir}/${name}"
-  }
-  if $etc_dir {
-    $local_etc_file = "${etc_dir}/${name}.conf"
-  } 
-  else {
-    $local_etc_file = "${automysqlbackup::params::etc_dir}/${name}.conf"
   }
 
+  if empty($etc_dir) {
+    $local_etc_file = "${automysqlbackup::etc_dir}/${name}.conf"
+  } else {
+    $local_etc_file = "${etc_dir}/${name}.conf"
+  }
+  
   file { $local_backup_dir:
     ensure  => directory,
     owner   => 'root',

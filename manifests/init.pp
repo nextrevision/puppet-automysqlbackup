@@ -81,15 +81,8 @@ class automysqlbackup (
     mode    => '0755',
   }
 
-  if ! has_key($config_defaults,'backup_dir') {
-      $config_defaults['backup_dir'] = $automysqlbackup::params::backup_dir
-  }
-  if ! has_key($config_defaults,'etc_dir') {
-      $config_defaults['etc_dir'] = $automysqlbackup::params::etc_dir
-  }
-
   # if you'd like to keep your config in hiera and pass it to this class.
   if ! empty($config) {
-    create_resources("@${module_name}::backup",$config,$config_defaults)
+    create_resources('automysqlbackup::backup',$config,$config_defaults)
   }
 }
