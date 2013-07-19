@@ -16,6 +16,9 @@
 # and regex search the documentation to find the meaning. No interpretation
 # from me.
 #
+# $install_multicore if set to true will install pigz and pbzip2 for 
+# multicore compression. Assumes packages are available. 
+#
 # === Examples
 #
 #  class { 'automysqlbackup':
@@ -36,10 +39,10 @@ class automysqlbackup (
   $bin_dir = $automysqlbackup::params::bin_dir,
   $etc_dir = $automysqlbackup::params::etc_dir,
   $backup_dir = $automysqlbackup::params::backup_dir,
+  $install_multicore,
   $config = {},
   $config_defaults = {}
 ) inherits automysqlbackup::params {
-  
 
   file { $automysqlbackup::params::etc_dir:
     ensure  => directory,
@@ -85,4 +88,11 @@ class automysqlbackup (
   if ! empty($config) {
     create_resources('automysqlbackup::backup',$config,$config_defaults)
   }
+  
+  if $install_multicore { 
+    package { ['pigz', 'pbzip2']:
+      ensure => installed
+    }
+  }
+
 }
