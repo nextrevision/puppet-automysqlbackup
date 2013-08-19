@@ -40,6 +40,10 @@ define automysqlbackup::backup (
   $mysql_dump_host = '',
   $mysql_dump_port = 3306,
   $backup_dir = '',
+  $backup_dir_owner = 'root',
+  $backup_dir_group = 'root',
+  $backup_dir_perms = '0700',
+  $backup_file_perms = '0400',
   $etc_dir = '',
   $multicore = '',
   $multicore_threads = '',
@@ -94,7 +98,7 @@ define automysqlbackup::backup (
   } else {
     $local_etc_file = "${etc_dir}/${name}.conf"
   }
-  
+ 
   file { $local_backup_dir:
     ensure  => directory,
     owner   => 'root',

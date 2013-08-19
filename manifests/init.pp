@@ -39,7 +39,7 @@ class automysqlbackup (
   $bin_dir = $automysqlbackup::params::bin_dir,
   $etc_dir = $automysqlbackup::params::etc_dir,
   $backup_dir = $automysqlbackup::params::backup_dir,
-  $install_multicore,
+  $install_multicore = undef,
   $config = {},
   $config_defaults = {}
 ) inherits automysqlbackup::params {
