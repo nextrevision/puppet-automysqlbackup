@@ -1,0 +1,23 @@
+* 2013-08-27 0.2.1
+Summary:
+This release heavily refactors the automysqlbackup class and adds a new
+definition for automysqlbackup::backup. This allows multiple backups to be
+configured spread across multiple config files. Doing this also allows values
+to be passed in from Hiera via the "config" variable in the automysqlbackup
+class.
+
+Bugfixes:
+- Lint error fixes (thanks zsprackett)
+
+Features:
+- Able to define multiple backups (thanks rhysrhaven)
+- Able to pass in data from Hiera and create backup resources
+(thanks rhysrhaven)
+- Specify a custom cron script to be run
+
+Incompatible Changes:
+- Calling the automysqlbackup class directly from a manifest is no longer
+supported. You must use the "automysqlbackup::backup" definition as illustrated
+in the examples. All parameters should work consistently so all that is needed
+is to simple change from "class {'automysqlbackup': }" to
+"automysqlbackup::backup {'default': }". 
