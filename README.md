@@ -8,7 +8,7 @@ Documentation can be found here: http://sourceforge.net/projects/automysqlbackup
 
 ## Compatibility
 
-The module has sucessfully been tested on Ubuntu 12.04+, Debian 6.0, and CentOS 6.3. If you find it doesn't work on your platform, open up a ticket on the GitHub project page.
+The module has sucessfully been tested on Ubuntu 12.04+, Debian 6.0, and CentOS 6.4. If you find it doesn't work on your platform, open up a ticket on the GitHub project page.
 
 ## Variable Names
 
@@ -24,16 +24,19 @@ Anything with an empty string implies that you are conceding to the default valu
 
 ## Usage
 
-### Basic:
+Usage comes in two ways. You can use the following in your manifests, or you can load the backup configurating into automysqlbackup::config and automysqlbackup::config_defaults via hiera or other ENC. 
 
-    class { 'automysqlbackup':
+### Basic:
+    include automysql::backup
+    automysqlbackup::backup { "mysqlbackup":
       mysql_dump_username  => 'root',
       mysql_dump_password  => 'password',
     }
 
 ### Daily backups only excluding certain databases:
 
-    class { 'automysqlbackup':
+    include automysql::backup
+    automysqlbackup::backup { "mysqlbackup":
       mysql_dump_username => 'root',
       mysql_dump_password => 'password',
       do_monthly          => '0',
@@ -41,8 +44,13 @@ Anything with an empty string implies that you are conceding to the default valu
       db_exclude          => ['performance_schema','information_schema'],
     }
 
-### Without cron job creation:
-    class { 'automysqlbackup':
+### Without cron job creation, changes the default backup directory:
+    
+    class { "automysqlbackup":
+      backup_dir           => '/home/backups'
+    }
+
+    automysqlbackup::backup { "mysqlbackup":
       mysql_dump_username  => 'root',
       mysql_dump_password  => 'password',
       cron_script          => false,
