@@ -5,6 +5,9 @@
 This module has been refactored. See the "Compatibility" section below if you
 are updating from a previous version.
 
+There was also an issue in 0.2.1 (previous release) with installing from Forge.
+This should be fixed now as the manifests have been correctly populated.
+
 ## Intro
 
 Before using this module, it is highly recommended that you consult the

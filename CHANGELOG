@@ -1,3 +1,9 @@
+* 2013-09-28 0.2.2
+Bug fixes:
+- Template deprecation warnings fixed (thanks rjw1)
+- Modified dependency to use new format (thanks rjw1)
+- Fixed issue with manifests not deploying from Forge
+
 * 2013-08-27 0.2.1
 Summary:
 This release heavily refactors the automysqlbackup class and adds a new
@@ -6,7 +12,7 @@ configured spread across multiple config files. Doing this also allows values
 to be passed in from Hiera via the "config" variable in the automysqlbackup
 class.
 
-Bugfixes:
+Bug fixes:
 - Lint error fixes (thanks zsprackett)
 
 Features:
