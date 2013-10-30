@@ -125,7 +125,7 @@ define automysqlbackup::backup (
   }
 
   if $cron_script {
-    file { "/etc/cron.daily/${name}.automysqlbackup":
+    file { "/etc/cron.daily/${name}-automysqlbackup":
       ensure  => file,
       owner   => 'root',
       group   => 'root',
