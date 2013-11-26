@@ -1,10 +1,17 @@
-* 2013-09-28 0.2.2
-Bug fixes:
+
+2013-11-25 0.2.3
+- Cron script properly renamed (thanks rjw1)
+- Simplified logic in the backup template
+- Added validation via stdlib for arrays and paths
+- Changed param defaults in backup type to use those declared in main class
+- Added spec tests
+
+2013-09-28 0.2.2
 - Template deprecation warnings fixed (thanks rjw1)
 - Modified dependency to use new format (thanks rjw1)
 - Fixed issue with manifests not deploying from Forge
 
-* 2013-08-27 0.2.1
+2013-08-27 0.2.1
 Summary:
 This release heavily refactors the automysqlbackup class and adds a new
 definition for automysqlbackup::backup. This allows multiple backups to be
@@ -17,8 +24,7 @@ Bug fixes:
 
 Features:
 - Able to define multiple backups (thanks rhysrhaven)
-- Able to pass in data from Hiera and create backup resources
-(thanks rhysrhaven)
+- Able to pass in data from Hiera and create backup resources (thanks rhysrhaven)
 - Specify a custom cron script to be run
 
 Incompatible Changes:

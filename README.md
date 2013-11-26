@@ -1,12 +1,29 @@
 # AutoMySQLBackup Module for Puppet
 
+[![Build Status](https://travis-ci.org/nextrevision/puppet-automysqlbackup.png?branch=master)](https://travis-ci.org/nextrevision/puppet-automysqlbackup)
+
+####Table of Contents
+
+1. [Upgrade Notice](#upgrade-notice)
+2. [Intro](#intro)
+3. [Compatibility](#compatibility)
+4. [Variable Names](#variable-names)
+5. [Supercedence](#supercedence)
+5. [Usage](#usage)
+6. [Running the script manually](#running-the-script-manually)
+7. [Support/Contribute](#support-contribute)
+8. [Contributors](#contributors)
+
 ## Upgrade Notice
 
-This module has been refactored. See the "Compatibility" section below if you
-are updating from a previous version.
+If upgrading from 0.1.X to 0.2.X, please see the compatibility section below.
+
+0.2.3 fixed a naming issue in the cron script. To avoid duplicate cron jobs,
+it will remove and $name.automysqlbackup in favor of $name-automysqlbackup in
+/etc/cron.daily/.
 
 There was also an issue in 0.2.1 (previous release) with installing from Forge.
-This should be fixed now as the manifests have been correctly populated.
+This was fixed as of 0.2.2 and the manifests have been correctly populated.
 
 ## Intro
 
@@ -20,12 +37,13 @@ http://sourceforge.net/projects/automysqlbackup
 
 ## Compatibility
 
-This module has been updated. Calling the 'automysqlbackup' class directly is
-no longer supported. See the changelog and usage below for more information.
+Ever since 0.2.X, this module has been updated. Calling the 'automysqlbackup'
+class directly is no longer supported. See the changelog and usage below for
+more information.
 
-The module has sucessfully been tested on Ubuntu 12.04+, Debian 6.0, and
-CentOS 6.4. If you find it doesn't work on your platform, open up a ticket on
-the GitHub project page.
+The module has sucessfully been tested on Ubuntu (10.04 and 12.04), Debian (6
+and 7), and CentOS (5.9 and 6.4). If you find it doesn't work on your platform,
+open up a ticket on the GitHub project page.
 
 ## Variable Names
 
@@ -102,3 +120,11 @@ make, please create a new issue or (even better) fork and change it, then
 provide me with either a patch or a pull request and I'll be happy to add it
 back in. If you have a feature you would like to see added, please create a new
 issue and I'll see if I can't add it in shortly.
+
+## Contributors
+
+* nextrevision
+* zsprackett
+* rhysrhaven
+* rjw1
+

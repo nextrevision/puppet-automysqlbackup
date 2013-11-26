@@ -8,7 +8,7 @@
   "types": [
 
   ],
-  "version": "0.2.1",
+  "version": "0.2.3",
   "name": "nextrevision-automysqlbackup",
   "checksums": {
     "files/LICENSE": "39bba7d2cf0ba1036f2a6e2be52fe3f0",
@@ -22,6 +22,8 @@
     "Modulefile": "78687d21b5ebc1980b094b053fa36a60"
   },
   "dependencies": [
-
+    {
+      "name": "puppetlabs/stdlib"
+    }
   ]
 }

@@ -7,17 +7,10 @@
 # String options
 <% @template_string_options.sort.map do |k, v| -%>
 <% if !v.empty? -%>
-<%= "CONFIG_#{k}=\"#{v}\"" %>
+<% if v.kind_of?(Array) -%>
+CONFIG_<%= k %>=( '<%= v.flatten.join("' '") %>' )
+<% else -%>
+CONFIG_<%= k %>='<%= v %>'
 <% end -%>
-<% end -%>
-
-# Array options
-<% @template_array_options.sort.map do |k, v| -%>
-<% config_string = "CONFIG_#{k}=( " -%>
-<% if !v.empty? then -%>
-<% v.each do |item| -%>
-<% config_string += "'#{item}' " -%>
-<% end -%>
-<%= config_string += ")" %>
 <% end -%>
 <% end -%>
