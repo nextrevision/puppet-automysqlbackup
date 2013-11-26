@@ -1,5 +1,5 @@
 name         'nextrevision-automysqlbackup'
-version      '0.2.3'
+version '0.2.4'
 source       'https://github.com/nextrevision/puppet-automysqlbackup/'
 author       'nextrevision'
 license      'Apache License, Version 2.0'
