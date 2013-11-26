@@ -11,7 +11,7 @@
 5. [Supercedence](#supercedence)
 5. [Usage](#usage)
 6. [Running the script manually](#running-the-script-manually)
-7. [Support/Contribute](#support-contribute)
+7. [Support or Contribute](#support-or-contribute)
 8. [Contributors](#contributors)
 
 ## Upgrade Notice
@@ -72,7 +72,7 @@ automysqlbackup::config_defaults via hiera or other ENC.
 
 ### Basic:
 
-    include automysql::backup
+    include automysqlbackup
     automysqlbackup::backup { 'automysqlbackup':
       mysql_dump_username  => 'root',
       mysql_dump_password  => 'password',
@@ -80,7 +80,7 @@ automysqlbackup::config_defaults via hiera or other ENC.
 
 ### Daily backups only excluding certain databases and tables:
 
-    include automysql::backup
+    include automysqlbackup
     automysqlbackup::backup { 'automysqlbackup':
       cron_template       => 'myrole/amb.cron.erb',
       mysql_dump_username => 'root',
