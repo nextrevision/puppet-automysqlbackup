@@ -1,3 +1,6 @@
+2014-10-11 0.2.4
+- Merge PR #9 "Empty arrays fix"
+- Extend test coverage for ruby and puppet version
 
 2013-11-25 0.2.3
 - Cron script properly renamed (thanks rjw1)
