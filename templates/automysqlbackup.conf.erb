@@ -6,11 +6,14 @@
 
 # String options
 <% @template_string_options.sort.map do |k, v| -%>
-<% if !v.empty? -%>
+
 <% if v.kind_of?(Array) -%>
+<% if !v.empty? -%>
 CONFIG_<%= k %>=( '<%= v.flatten.join("' '") %>' )
+<% end -%>
 <% else -%>
 CONFIG_<%= k %>='<%= v %>'
+
 <% end -%>
 <% end -%>
-<% end -%>
+
