@@ -101,7 +101,7 @@ describe 'automysqlbackup::backup' do
         let(:facts) {{ :osfamily => osfamily }}
         let(:pre_condition) { 'include automysqlbackup' }
         it 'should throw an error' do
-          expect { should }.to raise_error(Puppet::Error, /is not an Array/)
+          expect { should contain_file('/etc/automysqlbackup/db1.conf') }.to raise_error(Puppet::Error, /is not an Array/)
         end
       end
     end

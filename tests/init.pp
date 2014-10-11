@@ -12,6 +12,6 @@
 include automysqlbackup
 
 automysqlbackup::backup { 'automysqlbackup':
-  mysql_dump_username  => 'root',
-  mysql_dump_password  => 'password',
+  mysql_dump_username => 'root',
+  mysql_dump_password => 'password',
 }

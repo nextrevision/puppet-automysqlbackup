@@ -4,9 +4,8 @@ describe 'automysqlbackup' do
   context 'supported operating systems' do
     ['Debian', 'RedHat'].each do |osfamily|
       describe "automysqlbackup class without any parameters on #{osfamily}" do
-        let(:params) {{ }}
-        let(:facts) {{ :osfamily => osfamily }}
-        it { should include_class('automysqlbackup::params') }
+        let(:facts) {{ 'osfamily' => osfamily }}
+        #it { should include_class('automysqlbackup::params') }
         it 'should install the automysqlbackup binary' do
           should contain_file('/usr/local/bin/automysqlbackup').with({
             'ensure' => 'file',
@@ -42,10 +41,10 @@ describe 'automysqlbackup' do
       end
       describe "automysqlbackup class with custom backup and etc dirs on #{osfamily}" do
         let(:params) {{
-          :backup_dir => '/data/backups',
-          :etc_dir    => '/usr/local/etc/amb',
+          'backup_dir' => '/data/backups',
+          'etc_dir'    => '/usr/local/etc/amb',
         }}
-        let(:facts) {{ :osfamily => osfamily }}
+        let(:facts) {{ 'osfamily' => osfamily }}
         it 'should create the custom backup directory' do 
           should contain_file('/data/backups').with({
             'ensure' => 'directory',
@@ -71,18 +70,18 @@ describe 'automysqlbackup' do
         end
       end
       describe "automysqlbackup class with install_multicore #{osfamily}" do
-        let(:params) {{ :install_multicore => true }}
-        let(:facts) {{ :osfamily => osfamily }}
+        let(:params) {{ 'install_multicore' => true }}
+        let(:facts) {{ 'osfamily' => osfamily }}
         it 'should install multicore packages' do
           should contain_package('pigz').with({ 'ensure' => 'installed' })
           should contain_package('pbzip2').with({ 'ensure' => 'installed' })
         end
       end
       describe "automysqlbackup class with invalid path" do
-        let(:params) {{ :etc_dir => "not/absolute/path" }}
-        let(:facts) {{ :osfamily => osfamily }}
+        let(:params) {{ 'etc_dir' => "not/absolute/path" }}
+        let(:facts) {{ 'osfamily' => osfamily }}
         it 'should throw an error' do
-          expect { should }.to raise_error(Puppet::Error, /not an absolute path/)
+          expect { should contain_file('/etc/automysqlbackup') }.to raise_error(Puppet::Error, /not an absolute path/)
         end
       end
     end
