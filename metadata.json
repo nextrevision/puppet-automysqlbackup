@@ -1,16 +1,15 @@
 {
-  "project_page": "http://github.com/nextrevision/puppet-automysqlbackup/issues",
-  "description": "Performs full deployment and configuration of automysqlbackup for Debian/Ubuntu hosts.",
-  "summary": "Deploy automysqlbackup via Puppet",
-  "source": "https://github.com/nextrevision/puppet-automysqlbackup/",
-  "author": "nextrevision",
-  "license": "Apache",
-  "types": [],
-  "version": "0.2.4",
   "name": "nextrevision-automysqlbackup",
+  "version": "0.2.4",
+  "author": "nextrevision",
+  "summary": "Deploy automysqlbackup via Puppet",
+  "license": "Apache-2.0",
+  "source": "https://github.com/nextrevision/puppet-automysqlbackup/",
+  "project_page": "http://github.com/nextrevision/puppet-automysqlbackup/issues",
   "dependencies": [
     {
-      "name": "puppetlabs/stdlib"
+      "name": "puppetlabs/stdlib",
+      "version_requirement": ">= 4.22.0 < 6.0.0"
     }
   ],
   "operatingsystem_support": [
@@ -19,17 +18,30 @@
       "operatingsystemrelease": [
         "6.5"
       ]
-    },{
+    },
+    {
       "operatingsystem": "CentOS",
       "operatingsystemrelease": [
         "6.5"
       ]
-    },{
+    },
+    {
       "operatingsystem": "Ubuntu",
       "operatingsystemrelease": [
         "12.04",
-        "14.04"
+        "14.04",
+        "16.04"
       ]
     }
-  ]
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">= 4.10.0 < 7.0.0"
+    }
+  ],
+  "description": "Performs full deployment and configuration of automysqlbackup for Debian/Ubuntu hosts.",
+  "pdk-version": "1.7.1",
+  "template-url": "file:///opt/puppetlabs/pdk/share/cache/pdk-templates.git",
+  "template-ref": "1.7.1-0-g810b982"
 }
