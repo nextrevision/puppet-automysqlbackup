@@ -101,6 +101,7 @@ define automysqlbackup::backup (
   String                                          $postbackup                         = '',
   Variant[[String[0,0], Stdlib::Filemode]]        $umask                              = '',
   String                                          $dryrun                             = '',
+  Hash                                            $custom_config                      = {},
 ) {
   include automysqlbackup
 
@@ -186,6 +187,7 @@ define automysqlbackup::backup (
     'table_exclude'                     => $table_exclude,
     'backup_local_files'                => $backup_local_files
   }
+  $_template_string_options = $template_string_options + $custom_config
 
   # Last but not least, create the config file
   file { $etc_file_real:

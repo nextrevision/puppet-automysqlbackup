@@ -13,7 +13,8 @@ describe 'automysqlbackup::backup' do
     context "on #{os}" do
       let(:title) { 'db1' }
       let(:facts) { facts }
-      describe "with all params on defaults" do
+
+      describe 'with all params on defaults' do
         let(:params) { {} }
         let(:pre_condition) { 'include automysqlbackup' }
 
@@ -359,6 +360,12 @@ describe 'automysqlbackup::backup' do
           attr: 'dryrun',
           value: 'no',
           match: [%r{CONFIG_dryrun='no'}],
+        },
+        {
+          title: 'should contain custom parameter',
+          attr: 'custom_config',
+          value: { 'custom' => 'foo' },
+          match: [%r{CONFIG_custom='foo'}],
         },
       ].each do |param|
         describe "when #{param[:attr]} is #{param[:value]}" do

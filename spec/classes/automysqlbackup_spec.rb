@@ -5,8 +5,7 @@ describe 'automysqlbackup' do
     context "on #{os}" do
       let(:facts) { facts }
 
-      describe "automysqlbackup class without any parameters" do
-
+      describe 'automysqlbackup class without any parameters' do
         # it { should include_class('automysqlbackup::params') }
         it 'installs the automysqlbackup binary' do
           is_expected.to contain_file('/usr/local/bin/automysqlbackup').with('ensure' => 'file',
@@ -34,7 +33,7 @@ describe 'automysqlbackup' do
                                                                                                 'mode'   => '0660')
         end
       end
-      describe "automysqlbackup class with custom backup and etc dirs" do
+      describe 'automysqlbackup class with custom backup and etc dirs' do
         let(:params) do
           {
             'backup_dir' => '/data/backups',
@@ -61,7 +60,7 @@ describe 'automysqlbackup' do
         end
       end
 
-      describe "automysqlbackup class with install_multicore" do
+      describe 'automysqlbackup class with install_multicore' do
         let(:params) { { 'install_multicore' => true } }
 
         it 'installs multicore packages' do
@@ -81,7 +80,7 @@ describe 'automysqlbackup' do
       describe 'with custom source' do
         let(:params) { { 'source' => 'puppet:///modules/profile/backup/automysqlbackup' } }
 
-        it 'it installs automysqlbackup with custom source' do
+        it 'installs automysqlbackup with custom source' do
           is_expected.to contain_file('/usr/local/bin/automysqlbackup').with('ensure' => 'file',
                                                                              'owner'  => 'root',
                                                                              'group'  => 'root',
