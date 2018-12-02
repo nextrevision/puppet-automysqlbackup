@@ -9,12 +9,12 @@ describe 'automysqlbackup::backup' do
     }
   end
 
-  context 'on supported operating systems' do
-    ['Debian', 'RedHat'].each do |osfamily|
-      describe "with all params on defaults #{osfamily}" do
-        let(:title) { 'db1' }
+  on_supported_os.each do |os, facts|
+    context "on #{os}" do
+      let(:title) { 'db1' }
+      let(:facts) { facts }
+      describe "with all params on defaults" do
         let(:params) { {} }
-        let(:facts) { { osfamily: osfamily } }
         let(:pre_condition) { 'include automysqlbackup' }
 
         it 'contains the automysqlbackup db config file' do
@@ -37,9 +37,7 @@ describe 'automysqlbackup::backup' do
         end
       end
       describe 'with dir params changed and cron disabled' do
-        let(:title) { 'db1' }
         let(:params) { default_params }
-        let(:facts) { { osfamily: osfamily } }
         let(:pre_condition) { 'include automysqlbackup' }
 
         it 'contains the automysqlbackup db config file' do
@@ -59,9 +57,7 @@ describe 'automysqlbackup::backup' do
         end
       end
       describe 'with amb class using non-default etc dir' do
-        let(:title) { 'db1' }
         let(:params) { {} }
-        let(:facts) { { osfamily: osfamily } }
         let(:pre_condition) { 'class { "automysqlbackup": etc_dir => "/usr/local/etc/amb", } ' }
 
         it 'creates the config file' do
@@ -72,9 +68,7 @@ describe 'automysqlbackup::backup' do
         end
       end
       describe 'with amb class using non-default backup dir' do
-        let(:title) { 'db1' }
         let(:params) { {} }
-        let(:facts) { { osfamily: osfamily } }
         let(:pre_condition) { 'class { "automysqlbackup": backup_dir => "/amb-backups", } ' }
 
         it 'creates the config file' do
@@ -85,17 +79,16 @@ describe 'automysqlbackup::backup' do
         end
       end
       describe 'with string for array param' do
-        let(:title) { 'db1' }
         let(:params) { { db_exclude: 'stringval' } }
-        let(:facts) { { osfamily: osfamily } }
         let(:pre_condition) { 'include automysqlbackup' }
 
         it 'throws an error' do
-          expect { is_expected.to contain_file('/etc/automysqlbackup/db1.conf') }.to raise_error(Puppet::Error, %r{is not an Array})
+          expect { is_expected.to contain_file('/etc/automysqlbackup/db1.conf') }.to raise_error(Puppet::Error, %r{expects an Array value})
         end
       end
     end
   end
+
   describe 'config template items' do
     let(:facts) do
       {
@@ -136,8 +129,8 @@ describe 'automysqlbackup::backup' do
         {
           title: 'should contain mysql_dump_port',
           attr: 'mysql_dump_port',
-          value: '33306',
-          match: [%r{CONFIG_mysql_dump_port='33306'}],
+          value: 2207,
+          match: [%r{CONFIG_mysql_dump_port='2207'}],
         },
         {
           title: 'should contain multicore',
@@ -148,7 +141,7 @@ describe 'automysqlbackup::backup' do
         {
           title: 'should contain multicore_threads',
           attr: 'multicore_threads',
-          value: '3',
+          value: 3,
           match: [%r{CONFIG_multicore_threads='3'}],
         },
         {
@@ -184,32 +177,32 @@ describe 'automysqlbackup::backup' do
         {
           title: 'should contain do_weekly',
           attr: 'do_weekly',
-          value: '2',
+          value: 2,
           match: [%r{CONFIG_do_weekly='2'}],
         },
         {
           title: 'should contain rotation_daily',
           attr: 'rotation_daily',
-          value: '4',
+          value: 4,
           match: [%r{CONFIG_rotation_daily='4'}],
         },
         {
           title: 'should contain rotation_weekly',
           attr: 'rotation_weekly',
-          value: '45',
+          value: 45,
           match: [%r{CONFIG_rotation_weekly='45'}],
         },
         {
           title: 'should contain rotation_monthly',
           attr: 'rotation_monthly',
-          value: '230',
+          value: 230,
           match: [%r{CONFIG_rotation_monthly='230'}],
         },
         {
           title: 'should contain mysql_dump_commcomp',
           attr: 'mysql_dump_commcomp',
-          value: 'value',
-          match: [%r{CONFIG_mysql_dump_commcomp='value'}],
+          value: 'yes',
+          match: [%r{CONFIG_mysql_dump_commcomp='yes'}],
         },
         {
           title: 'should contain mysql_dump_usessl',
@@ -220,14 +213,14 @@ describe 'automysqlbackup::backup' do
         {
           title: 'should contain mysql_dump_socket',
           attr: 'mysql_dump_socket',
-          value: 'none.sock',
-          match: [%r{CONFIG_mysql_dump_socket='none.sock'}],
+          value: '/tmp/none.sock',
+          match: [%r{CONFIG_mysql_dump_socket='/tmp/none.sock'}],
         },
         {
           title: 'should contain mysql_dump_max_allowed_packet',
           attr: 'mysql_dump_max_allowed_packet',
-          value: '400',
-          match: [%r{CONFIG_mysql_dump_max_allowed_packet='400'}],
+          value: 2048,
+          match: [%r{CONFIG_mysql_dump_max_allowed_packet='2048'}],
         },
         {
           title: 'should contain mysql_dump_buffer_size',
@@ -244,7 +237,7 @@ describe 'automysqlbackup::backup' do
         {
           title: 'should contain mysql_dump_master_data',
           attr: 'mysql_dump_master_data',
-          value: '1',
+          value: 1,
           match: [%r{CONFIG_mysql_dump_master_data='1'}],
         },
         {
@@ -304,7 +297,7 @@ describe 'automysqlbackup::backup' do
         {
           title: 'should contain mail_maxattsize',
           attr: 'mail_maxattsize',
-          value: '40',
+          value: 40,
           match: [%r{CONFIG_mail_maxattsize='40'}],
         },
         {

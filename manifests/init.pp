@@ -43,21 +43,13 @@
 # Copyright 2013 NextRevision, unless otherwise noted.
 
 class automysqlbackup (
-  $bin_dir           = $automysqlbackup::params::bin_dir,
-  $etc_dir           = $automysqlbackup::params::etc_dir,
-  $backup_dir        = $automysqlbackup::params::backup_dir,
-  $install_multicore = undef,
-  $config            = {},
-  $config_defaults   = {},
+  Stdlib::Absolutepath $bin_dir           = $automysqlbackup::params::bin_dir,
+  Stdlib::Absolutepath $etc_dir           = $automysqlbackup::params::etc_dir,
+  Stdlib::Absolutepath $backup_dir        = $automysqlbackup::params::backup_dir,
+  Boolean              $install_multicore = false,
+  Hash                 $config            = {},
+  Hash                 $config_defaults   = {},
 ) inherits automysqlbackup::params {
-
-  # Ensure valid paths are assigned
-  validate_absolute_path($bin_dir)
-  validate_absolute_path($etc_dir)
-  validate_absolute_path($backup_dir)
-  validate_hash($config)
-  validate_hash($config_defaults)
-
   # Create a subdirectory in /etc for config files
   file { $etc_dir:
     ensure => directory,
@@ -103,13 +95,18 @@ class automysqlbackup (
   }
 
   # If you'd like to keep your config in hiera and pass it to this class
-  if !empty($config) {
-    create_resources('automysqlbackup::backup', $config, $config_defaults)
+  $_config = deep_merge($config_defaults,$config)
+  $_config.each |$key,$value| {
+    automysqlbackup::backup { $key:
+      * => $value,
+    }
   }
 
   # If using RedHat family, must have the RPMforge repo's enabled
   if $install_multicore {
-    package { ['pigz', 'pbzip2']: ensure => installed }
+    package { ['pigz', 'pbzip2']:
+      ensure => installed,
+    }
   }
 
 }

@@ -8,7 +8,8 @@
   "project_page": "http://github.com/nextrevision/puppet-automysqlbackup/issues",
   "dependencies": [
     {
-      "name": "puppetlabs/stdlib"
+      "name": "puppetlabs/stdlib",
+      "version_requirement": ">= 4.22.0 < 6.0.0"
     }
   ],
   "operatingsystem_support": [
@@ -28,14 +29,15 @@
       "operatingsystem": "Ubuntu",
       "operatingsystemrelease": [
         "12.04",
-        "14.04"
+        "14.04",
+        "16.04"
       ]
     }
   ],
   "requirements": [
     {
       "name": "puppet",
-      "version_requirement": ">= 4.7.0 < 7.0.0"
+      "version_requirement": ">= 4.10.0 < 7.0.0"
     }
   ],
   "description": "Performs full deployment and configuration of automysqlbackup for Debian/Ubuntu hosts.",
