@@ -26,19 +26,19 @@ describe 'basic tests' do
     EOS
 
     puppet_apply(pp) do |r|
-      r.exit_code.should == 2
+      r.exit_code.should be == 2
       r.refresh
       r.exit_code.should be_zero
     end
   end
-  it 'should run automysqlbackup' do
+  it 'runs automysqlbackup' do
     shell '/etc/cron.daily/automysqlbackup-automysqlbackup' do |r|
-      r.stdout.should =~ /Backup End Time/
+      r.stdout.should =~ %r{Backup End Time}
       r.stderr.should be_empty
       r.exit_code.should be_zero
     end
   end
-  it 'should create backup mysql backup file' do
+  it 'creates backup mysql backup file' do
     shell 'test -f /mnt/backups/automysqlbackup/daily/mysql/daily_mysql*' do |r|
       r.stderr.should be_empty
       r.exit_code.should be_zero
