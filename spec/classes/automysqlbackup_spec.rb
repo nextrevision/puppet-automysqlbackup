@@ -12,7 +12,8 @@ describe 'automysqlbackup' do
           is_expected.to contain_file('/usr/local/bin/automysqlbackup').with('ensure' => 'file',
                                                                              'owner'  => 'root',
                                                                              'group'  => 'root',
-                                                                             'mode'   => '0755')
+                                                                             'mode'   => '0755',
+                                                                             'source' => 'puppet:///modules/automysqlbackup/automysqlbackup')
         end
         it 'makes the backup directory' do
           is_expected.to contain_file('/var/backup').with('ensure' => 'directory',
@@ -59,6 +60,7 @@ describe 'automysqlbackup' do
                                                                                               'group' => 'root')
         end
       end
+
       describe "automysqlbackup class with install_multicore" do
         let(:params) { { 'install_multicore' => true } }
 
@@ -67,11 +69,24 @@ describe 'automysqlbackup' do
           is_expected.to contain_package('pbzip2').with('ensure' => 'installed')
         end
       end
+
       describe 'automysqlbackup class with invalid path' do
         let(:params) { { 'etc_dir' => 'not/absolute/path' } }
 
         it 'throws an error' do
           expect { is_expected.to contain_file('/etc/automysqlbackup') }.to raise_error(Puppet::Error, %r{expects a.*Stdlib::Windowspath.*Stdlib::Unixpath})
+        end
+      end
+
+      describe 'with custom source' do
+        let(:params) { { 'source' => 'puppet:///modules/profile/backup/automysqlbackup' } }
+
+        it 'it installs automysqlbackup with custom source' do
+          is_expected.to contain_file('/usr/local/bin/automysqlbackup').with('ensure' => 'file',
+                                                                             'owner'  => 'root',
+                                                                             'group'  => 'root',
+                                                                             'mode'   => '0755',
+                                                                             'source' => 'puppet:///modules/profile/backup/automysqlbackup')
         end
       end
     end
