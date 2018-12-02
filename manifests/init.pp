@@ -43,13 +43,13 @@
 # Copyright 2013 NextRevision, unless otherwise noted.
 
 class automysqlbackup (
-  Stdlib::Absolutepath $bin_dir           = $automysqlbackup::params::bin_dir,
-  Stdlib::Absolutepath $etc_dir           = $automysqlbackup::params::etc_dir,
-  Stdlib::Absolutepath $backup_dir        = $automysqlbackup::params::backup_dir,
+  Stdlib::Absolutepath $bin_dir           = '/usr/local/bin',
+  Stdlib::Absolutepath $etc_dir           = '/etc/automysqlbackup',
+  Stdlib::Absolutepath $backup_dir        = '/var/backup',
   Boolean              $install_multicore = false,
   Hash                 $config            = {},
   Hash                 $config_defaults   = {},
-) inherits automysqlbackup::params {
+) {
   # Create a subdirectory in /etc for config files
   file { $etc_dir:
     ensure => directory,

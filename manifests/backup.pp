@@ -16,7 +16,7 @@
 # and regex search the documentation to find the meaning. No interpretation
 # from me.
 #
-# If $backup_dir is not specified, it will default to that listed in params.pp.
+# If $backup_dir is not specified, it will default to that listed in init.pp.
 #
 # === Examples
 #
